@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lab 2: Singing A Song</title>
+<title>Lab 3: Singing A Song</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3028,7 +3028,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lab 2: Singing A Song</h1>
+<h1 class="title">Lab 3: Singing A Song</h1>
 </div>
 
 
@@ -3043,7 +3043,7 @@ vertical-align: -.125em;
 
 </header>
 
-<div class="cell" data-execution_count="79">
+<div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
@@ -3052,45 +3052,50 @@ vertical-align: -.125em;
 <p>Function 1: pluralize_gift() The gifts are listed in singular: for example, on day five the narrator receives “five golden rings”, but the entry in the data set for the gift on day five simply says “ring”.</p>
 <p>Hint 1: The gifts on days six and nine have unusual pluralization. You may assume that in other data sets, there will be no additional special cases besides these types.</p>
 <p>Hint 2: The following small code snippets may be useful to you:</p>
-<div class="cell" data-execution_count="81">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pluralize_gift(gift):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">      Returns plural of a noun</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">      Parameters</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">      ----------</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">      gift: str</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">        A noun</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">      Return</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">      ------</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">      str</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">        Plural version</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> gift <span class="op">==</span> <span class="st">&quot;goose&quot;</span>:</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        gift <span class="op">=</span> gift.replace(<span class="st">&quot;goose&quot;</span>, <span class="st">&quot;geese&quot;</span>)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> gift <span class="op">==</span> <span class="st">&quot;lady&quot;</span>: </span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        gift <span class="op">=</span> gift.replace(<span class="st">&quot;lady&quot;</span>,<span class="st">&#39;ladies&#39;</span>)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        gift <span class="op">=</span> gift <span class="op">+</span> <span class="st">&quot;s&quot;</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gift</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;foot&quot;</span>.find(<span class="st">&quot;oo&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>1</code></pre>
 </div>
-<div class="cell" data-execution_count="82">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pluralize_gift(<span class="st">&quot;goose&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="82">
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pluralize_gift(gift):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">      Returns plural of a noun</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">      Parameters</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">      ----------</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">      gift: str</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">        A noun</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">      Return</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">      ------</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">      str</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">        Plural version</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> gift[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span> <span class="st">&quot;y&quot;</span>: </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        gift <span class="op">=</span> gift.replace(<span class="st">&quot;y&quot;</span>,<span class="st">&#39;ies&#39;</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> gift.find(<span class="st">&quot;oo&quot;</span>) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        gift <span class="op">=</span> gift.replace(<span class="st">&quot;oo&quot;</span>, <span class="st">&quot;ee&quot;</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        gift <span class="op">=</span> gift <span class="op">+</span> <span class="st">&quot;s&quot;</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gift</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pluralize_gift(<span class="st">&quot;goose&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>&#39;geese&#39;</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="83">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Will work if your function is vectorized!</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>gifts <span class="op">=</span> <span class="bu">map</span>(pluralize_gift, xmas[<span class="st">&#39;Gift.Item&#39;</span>])</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(gifts)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="83">
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Will work if your function is vectorized!</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Function is not vectorized, so we need to map it</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>gifts <span class="op">=</span> <span class="bu">map</span>(pluralize_gift, xmas[<span class="st">&#39;Gift.Item&#39;</span>])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(gifts)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>[&#39;partridges&#39;,
  &#39;doves&#39;,
  &#39;hens&#39;,
@@ -3109,81 +3114,81 @@ vertical-align: -.125em;
 <p>make_phrase(num_word = “ten”, item = “lords”, verb = “a-leaping”, adjective = ““, location =”“)</p>
 <p>should return</p>
 <p>“ten lords a-leaping”</p>
-<div class="cell" data-execution_count="84">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_phrase(num, num_word, item, verb, adjective, location):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns a phrase</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">  ----------</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">    num: int</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">        A number</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">    num_word: str</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">        A determiner</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">    item: str</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">        A noun</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">    verb: A str</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">        A verb</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">    Adjective: A str</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">        An adjective</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">    location: A str</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">        A noun</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">  Return</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">  ------</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">  str</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">    These parameters put together into a phrase</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">  &quot;&quot;&quot;</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">## Step 1: Replace NAs with blank strings</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    verb <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span> pd.isna(verb) <span class="cf">else</span> verb</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    adjective <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span> pd.isna(adjective) <span class="cf">else</span> adjective</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    location <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span> pd.isna(location) <span class="cf">else</span> location</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  <span class="co">## Step 2: If the day number is larger than 1, the gift items need pluralized!</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="co">### Hint: call the function you created above!</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> num <span class="op">&gt;</span> <span class="dv">1</span>:</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>        item <span class="op">=</span> pluralize_gift(item)</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>        item <span class="op">=</span> item</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>  <span class="co">## Step 3: Figure out if a gift item starts with a vowel</span></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    vowel_list <span class="op">=</span> [<span class="st">&#39;a&#39;</span>,<span class="st">&#39;e&#39;</span>,<span class="st">&#39;i&#39;</span>,<span class="st">&#39;o&#39;</span>,<span class="st">&#39;u&#39;</span>]</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>  <span class="co">## Step 4: For the first day, if the gift item starts with a vowel, replace the day with &quot;an&quot; and if the gift item does not start with a vowel, replace the day with &quot;a&quot; (e.g. a partridge in a pear tree). If it is not the first day, use just the number word (e.g. ten lords a leap)</span></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (num <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (item[<span class="dv">0</span>] <span class="kw">in</span> vowel_list):</span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>        num_word <span class="op">=</span> num_word.replace(num_word, <span class="st">&quot;an&quot;</span>)</span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> (num <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (item[<span class="dv">0</span>] <span class="kw">not</span> <span class="kw">in</span> vowel_list):</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>         num_word <span class="op">=</span> num_word.replace(num_word, <span class="st">&quot;a&quot;</span>)</span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>        num_word <span class="op">=</span> num_word</span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>  <span class="co">## Step 5: Put all of the pieces together into one string and return!</span></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    str_list <span class="op">=</span> [num_word, adjective, item, verb, location]</span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&quot; &quot;</span>.join(<span class="bu">filter</span>(<span class="va">None</span>, str_list))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_phrase(num, num_word, item, verb, adjective, location):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns a phrase</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">  ----------</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">    num: int</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">        A number</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">    num_word: str</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">        A determiner</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">    item: str</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">        A noun</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">    verb: A str</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">        A verb</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">    Adjective: A str</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">        An adjective</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">    location: A str</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">        A noun</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">  Return</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">  ------</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">  str</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">    These parameters put together into a phrase</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">  &quot;&quot;&quot;</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">## Step 1: Replace NAs with blank strings</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    verb <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span> pd.isna(verb) <span class="cf">else</span> verb</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    adjective <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span> pd.isna(adjective) <span class="cf">else</span> adjective</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    location <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span> pd.isna(location) <span class="cf">else</span> location</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  <span class="co">## Step 2: If the day number is larger than 1, the gift items need pluralized!</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="co">### Hint: call the function you created above!</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> num <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>        item <span class="op">=</span> pluralize_gift(item)</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>        item <span class="op">=</span> item</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>  <span class="co">## Step 3: Figure out if a gift item starts with a vowel</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    vowel_list <span class="op">=</span> [<span class="st">&#39;a&#39;</span>,<span class="st">&#39;e&#39;</span>,<span class="st">&#39;i&#39;</span>,<span class="st">&#39;o&#39;</span>,<span class="st">&#39;u&#39;</span>]</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>  <span class="co">## Step 4: For the first day, if the gift item starts with a vowel, replace the day with &quot;an&quot; and if the gift item does not start with a vowel, replace the day with &quot;a&quot; (e.g. a partridge in a pear tree). If it is not the first day, use just the number word (e.g. ten lords a leap)</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (num <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (item[<span class="dv">0</span>] <span class="kw">in</span> vowel_list):</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>        num_word <span class="op">=</span> num_word.replace(num_word, <span class="st">&quot;an&quot;</span>)</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> (num <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (item[<span class="dv">0</span>] <span class="kw">not</span> <span class="kw">in</span> vowel_list):</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>         num_word <span class="op">=</span> num_word.replace(num_word, <span class="st">&quot;a&quot;</span>)</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>        num_word <span class="op">=</span> num_word</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>  <span class="co">## Step 5: Put all of the pieces together into one string and return!</span></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>    str_list <span class="op">=</span> [num_word, adjective, item, verb, location]</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&quot; &quot;</span>.join(<span class="bu">filter</span>(<span class="va">None</span>, str_list))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="85">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>make_phrase(num <span class="op">=</span> <span class="dv">1</span>, num_word <span class="op">=</span> <span class="st">&quot;one&quot;</span>, item <span class="op">=</span> <span class="st">&quot;partridge&quot;</span>, verb <span class="op">=</span> <span class="st">&#39;&#39;</span>, adjective <span class="op">=</span> <span class="st">&#39;&#39;</span>, location <span class="op">=</span> <span class="st">&quot;in a pear tree&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="85">
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>make_phrase(num <span class="op">=</span> <span class="dv">1</span>, num_word <span class="op">=</span> <span class="st">&quot;one&quot;</span>, item <span class="op">=</span> <span class="st">&quot;partridge&quot;</span>, verb <span class="op">=</span> <span class="st">&#39;&#39;</span>, adjective <span class="op">=</span> <span class="st">&#39;&#39;</span>, location <span class="op">=</span> <span class="st">&quot;in a pear tree&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
 <pre><code>&#39;a partridge in a pear tree&#39;</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="86">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>make_phrase(xmas[<span class="st">&quot;Day&quot;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Day.in.Words&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Gift.Item&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Verb&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Adjective&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Location&#39;</span>][<span class="dv">11</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="86">
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>make_phrase(xmas[<span class="st">&quot;Day&quot;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Day.in.Words&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Gift.Item&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Verb&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Adjective&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Location&#39;</span>][<span class="dv">11</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
 <pre><code>&#39;twelfth drummers drumming&#39;</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="87">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>correct_num_word <span class="op">=</span> {<span class="st">&#39;first&#39;</span>: <span class="st">&#39;one&#39;</span>, <span class="st">&#39;second&#39;</span>: <span class="st">&#39;two&#39;</span>, <span class="st">&#39;third&#39;</span>: <span class="st">&#39;three&#39;</span>, <span class="st">&#39;fourth&#39;</span>: <span class="st">&#39;four&#39;</span>, <span class="st">&#39;fifth&#39;</span>: <span class="st">&#39;five&#39;</span>, <span class="st">&#39;sixth&#39;</span>: <span class="st">&#39;six&#39;</span>, <span class="st">&#39;seventh&#39;</span>: <span class="st">&#39;seven&#39;</span>, <span class="st">&#39;eighth&#39;</span>: <span class="st">&#39;eight&#39;</span>, <span class="st">&#39;ninth&#39;</span>: <span class="st">&#39;nine&#39;</span>,  <span class="st">&#39;tenth&#39;</span>: <span class="st">&#39;ten&#39;</span>, <span class="st">&#39;eleventh&#39;</span>: <span class="st">&#39;eleven&#39;</span>, <span class="st">&#39;twelfth&#39;</span>: <span class="st">&#39;twelve&#39;</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>correct_num_word <span class="op">=</span> {<span class="st">&#39;first&#39;</span>: <span class="st">&#39;one&#39;</span>, <span class="st">&#39;second&#39;</span>: <span class="st">&#39;two&#39;</span>, <span class="st">&#39;third&#39;</span>: <span class="st">&#39;three&#39;</span>, <span class="st">&#39;fourth&#39;</span>: <span class="st">&#39;four&#39;</span>, <span class="st">&#39;fifth&#39;</span>: <span class="st">&#39;five&#39;</span>, <span class="st">&#39;sixth&#39;</span>: <span class="st">&#39;six&#39;</span>, <span class="st">&#39;seventh&#39;</span>: <span class="st">&#39;seven&#39;</span>, <span class="st">&#39;eighth&#39;</span>: <span class="st">&#39;eight&#39;</span>, <span class="st">&#39;ninth&#39;</span>: <span class="st">&#39;nine&#39;</span>,  <span class="st">&#39;tenth&#39;</span>: <span class="st">&#39;ten&#39;</span>, <span class="st">&#39;eleventh&#39;</span>: <span class="st">&#39;eleven&#39;</span>, <span class="st">&#39;twelfth&#39;</span>: <span class="st">&#39;twelve&#39;</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="88">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>xmas[<span class="st">&#39;num_word&#39;</span>] <span class="op">=</span> xmas[<span class="st">&#39;Day.in.Words&#39;</span>].<span class="bu">map</span>(correct_num_word)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>xmas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="88">
+<div class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>xmas[<span class="st">&#39;num_word&#39;</span>] <span class="op">=</span> xmas[<span class="st">&#39;Day.in.Words&#39;</span>].<span class="bu">map</span>(correct_num_word)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>xmas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
 <div>
 
 
@@ -3198,6 +3203,7 @@ vertical-align: -.125em;
 <th data-quarto-table-cell-role="th">Adjective</th>
 <th data-quarto-table-cell-role="th">Location</th>
 <th data-quarto-table-cell-role="th">num_word</th>
+<th data-quarto-table-cell-role="th">Full.Phrase</th>
 </tr>
 </thead>
 <tbody>
@@ -3210,6 +3216,7 @@ vertical-align: -.125em;
 <td>NaN</td>
 <td>in a pear tree</td>
 <td>one</td>
+<td>a partridge in a pear tree</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
@@ -3220,6 +3227,7 @@ vertical-align: -.125em;
 <td>turtle</td>
 <td>NaN</td>
 <td>two</td>
+<td>two turtle doves</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
@@ -3230,6 +3238,7 @@ vertical-align: -.125em;
 <td>french</td>
 <td>NaN</td>
 <td>three</td>
+<td>three french hens</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
@@ -3240,6 +3249,7 @@ vertical-align: -.125em;
 <td>calling</td>
 <td>NaN</td>
 <td>four</td>
+<td>four calling birds</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
@@ -3250,6 +3260,7 @@ vertical-align: -.125em;
 <td>golden</td>
 <td>NaN</td>
 <td>five</td>
+<td>five golden rings</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
@@ -3260,6 +3271,7 @@ vertical-align: -.125em;
 <td>NaN</td>
 <td>NaN</td>
 <td>six</td>
+<td>six geese a-laying</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
@@ -3270,6 +3282,7 @@ vertical-align: -.125em;
 <td>NaN</td>
 <td>NaN</td>
 <td>seven</td>
+<td>seven swans a-swimming</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
@@ -3280,6 +3293,7 @@ vertical-align: -.125em;
 <td>NaN</td>
 <td>NaN</td>
 <td>eight</td>
+<td>eight maids a-milking</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
@@ -3290,6 +3304,7 @@ vertical-align: -.125em;
 <td>NaN</td>
 <td>NaN</td>
 <td>nine</td>
+<td>nine ladies dancing</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">9</td>
@@ -3300,6 +3315,7 @@ vertical-align: -.125em;
 <td>NaN</td>
 <td>NaN</td>
 <td>ten</td>
+<td>ten lords a-leaping</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
@@ -3310,6 +3326,7 @@ vertical-align: -.125em;
 <td>NaN</td>
 <td>NaN</td>
 <td>eleven</td>
+<td>eleven pipers piping</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">11</td>
@@ -3320,6 +3337,7 @@ vertical-align: -.125em;
 <td>NaN</td>
 <td>NaN</td>
 <td>twelve</td>
+<td>twelve drummers drumming</td>
 </tr>
 </tbody>
 </table>
@@ -3327,18 +3345,18 @@ vertical-align: -.125em;
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="89">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>make_phrase(xmas[<span class="st">&quot;Day&quot;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;num_word&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Gift.Item&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Verb&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Adjective&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Location&#39;</span>][<span class="dv">11</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="89">
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>make_phrase(xmas[<span class="st">&quot;Day&quot;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;num_word&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Gift.Item&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Verb&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Adjective&#39;</span>][<span class="dv">11</span>], xmas[<span class="st">&#39;Location&#39;</span>][<span class="dv">11</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
 <pre><code>&#39;twelve drummers drumming&#39;</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="90">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>xmas[<span class="st">&#39;Full.Phrase&#39;</span>] <span class="op">=</span> xmas.<span class="bu">apply</span>(<span class="kw">lambda</span> x: make_phrase(x[<span class="st">&#39;Day&#39;</span>], x[<span class="st">&#39;num_word&#39;</span>], x[<span class="st">&#39;Gift.Item&#39;</span>], x[<span class="st">&#39;Verb&#39;</span>], x[<span class="st">&#39;Adjective&#39;</span>], x[<span class="st">&#39;Location&#39;</span>]), axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>xmas[<span class="st">&#39;Full.Phrase&#39;</span>] <span class="op">=</span> xmas.<span class="bu">apply</span>(<span class="kw">lambda</span> x: make_phrase(x[<span class="st">&#39;Day&#39;</span>], x[<span class="st">&#39;num_word&#39;</span>], x[<span class="st">&#39;Gift.Item&#39;</span>], x[<span class="st">&#39;Verb&#39;</span>], x[<span class="st">&#39;Adjective&#39;</span>], x[<span class="st">&#39;Location&#39;</span>]), axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="91">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>xmas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="91">
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>xmas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
 <div>
 
 
@@ -3499,62 +3517,62 @@ vertical-align: -.125em;
 <p>A dataset (input as a dataframe)</p>
 <p>A number indicating which day to sing about (input as an integer)</p>
 <p>The name of a column in the dataset that contains the phrases for each day (input as an tidy name)</p>
-<div class="cell" data-execution_count="92">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sing_day(dataset, num, phrase_col):</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns the intro to the song along with the phrase for each gift</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">  ----------</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">    dataset: a dataframe</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">        A dataframe to be passed in</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">    num: int</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">        A determiner</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">    phrase_col: a series</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co">        A column in the form of a series</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">  Return</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">  ------</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co">  str</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co">    The intro to the song along with each gift printed on a new line.</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 1: Setup the intro line</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    number_words <span class="op">=</span> {</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>: <span class="st">&quot;first&quot;</span>,</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>: <span class="st">&quot;second&quot;</span>,</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>: <span class="st">&quot;third&quot;</span>,</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>: <span class="st">&quot;fourth&quot;</span>,</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span>: <span class="st">&quot;fifth&quot;</span>,</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    <span class="dv">6</span>: <span class="st">&quot;sixth&quot;</span>,</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>    <span class="dv">7</span>: <span class="st">&quot;seventh&quot;</span>,</span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>    <span class="dv">8</span>: <span class="st">&quot;eighth&quot;</span>,</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    <span class="dv">9</span>: <span class="st">&quot;ninth&quot;</span>,</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>    <span class="dv">10</span>: <span class="st">&quot;tenth&quot;</span>,</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>    <span class="dv">11</span>: <span class="st">&quot;eleventh&quot;</span>,</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>    <span class="dv">12</span>: <span class="st">&quot;twelfth&quot;</span></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>    num_word <span class="op">=</span> number_words[num]  <span class="co"># convert &quot;1&quot; to &quot;first&quot; etc.</span></span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>    intro <span class="op">=</span> <span class="st">&quot;On the &quot;</span> <span class="op">+</span> num_word <span class="op">+</span> <span class="st">&quot; day of Christmas, my true love sent to me:</span><span class="ch">\n</span><span class="st">&quot;</span></span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 2: Sing the gift phrases</span></span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Hint: What order are they gifts sung in each day?</span></span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>    gifts <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>):</span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (i <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (num <span class="op">!=</span> <span class="dv">1</span>):</span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>            gifts <span class="op">=</span> gifts <span class="op">+</span> <span class="st">&#39;and &#39;</span> <span class="op">+</span> dataset[phrase_col][i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> <span class="st">&quot;.</span><span class="ch">\n</span><span class="st">&quot;</span></span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> (i <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (num <span class="op">==</span> <span class="dv">1</span>):</span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>            gifts <span class="op">=</span> gifts <span class="op">+</span> dataset[phrase_col][i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> <span class="st">&quot;.</span><span class="ch">\n</span><span class="st">&quot;</span></span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>            gifts <span class="op">=</span> gifts <span class="op">+</span> dataset[phrase_col][i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> <span class="st">&quot;,</span><span class="ch">\n</span><span class="st">&quot;</span></span>
-<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 3: Put it all together and return</span></span>
-<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(intro <span class="op">+</span> gifts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sing_day(dataset, num, phrase_col):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns the intro to the song along with the phrase for each gift</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">  ----------</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">    dataset: a dataframe</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">        A dataframe to be passed in</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">    num: int</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">        A determiner</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">    phrase_col: a series</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">        A column in the form of a series</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">  Return</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">  ------</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co">  str</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co">    The intro to the song along with each gift printed on a new line.</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 1: Setup the intro line</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    number_words <span class="op">=</span> {</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>: <span class="st">&quot;first&quot;</span>,</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>: <span class="st">&quot;second&quot;</span>,</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>: <span class="st">&quot;third&quot;</span>,</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>: <span class="st">&quot;fourth&quot;</span>,</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span>: <span class="st">&quot;fifth&quot;</span>,</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    <span class="dv">6</span>: <span class="st">&quot;sixth&quot;</span>,</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    <span class="dv">7</span>: <span class="st">&quot;seventh&quot;</span>,</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>    <span class="dv">8</span>: <span class="st">&quot;eighth&quot;</span>,</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>    <span class="dv">9</span>: <span class="st">&quot;ninth&quot;</span>,</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>    <span class="dv">10</span>: <span class="st">&quot;tenth&quot;</span>,</span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>    <span class="dv">11</span>: <span class="st">&quot;eleventh&quot;</span>,</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>    <span class="dv">12</span>: <span class="st">&quot;twelfth&quot;</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>    num_word <span class="op">=</span> number_words[num]  <span class="co"># convert &quot;1&quot; to &quot;first&quot; etc.</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>    intro <span class="op">=</span> <span class="st">&quot;On the &quot;</span> <span class="op">+</span> num_word <span class="op">+</span> <span class="st">&quot; day of Christmas, my true love sent to me:</span><span class="ch">\n</span><span class="st">&quot;</span></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 2: Sing the gift phrases</span></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Hint: What order are they gifts sung in each day?</span></span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>    gifts <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (i <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (num <span class="op">!=</span> <span class="dv">1</span>):</span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>            gifts <span class="op">=</span> gifts <span class="op">+</span> <span class="st">&#39;and &#39;</span> <span class="op">+</span> dataset[phrase_col][i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> <span class="st">&quot;.</span><span class="ch">\n</span><span class="st">&quot;</span></span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> (i <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (num <span class="op">==</span> <span class="dv">1</span>):</span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>            gifts <span class="op">=</span> gifts <span class="op">+</span> dataset[phrase_col][i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> <span class="st">&quot;.</span><span class="ch">\n</span><span class="st">&quot;</span></span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>            gifts <span class="op">=</span> gifts <span class="op">+</span> dataset[phrase_col][i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> <span class="st">&quot;,</span><span class="ch">\n</span><span class="st">&quot;</span></span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 3: Put it all together and return</span></span>
+<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(intro <span class="op">+</span> gifts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-scrolled="true" data-execution_count="93">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sing_day(xmas, <span class="dv">3</span>, <span class="st">&quot;Full.Phrase&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-scrolled="true" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sing_day(xmas, <span class="dv">3</span>, <span class="st">&quot;Full.Phrase&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>On the third day of Christmas, my true love sent to me:
 three french hens,
@@ -3563,9 +3581,9 @@ and a partridge in a pear tree.
 </code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="94">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>song <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: sing_day(xmas, x, <span class="st">&#39;Full.Phrase&#39;</span>), xmas[<span class="st">&#39;Day&#39;</span>]))</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(song)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>song <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: sing_day(xmas, x, <span class="st">&#39;Full.Phrase&#39;</span>), xmas[<span class="st">&#39;Day&#39;</span>]))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(song)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>On the first day of Christmas, my true love sent to me:
 a partridge in a pear tree.
@@ -3672,10 +3690,10 @@ and a partridge in a pear tree.
 [None, None, None, None, None, None, None, None, None, None, None, None]</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="95">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>xmas2 <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://www.dropbox.com/scl/fi/p9x9k8xwuzs9rhp582vfy/xmas_2.csv?rlkey=kvc3j3lmyn4opcidsrhcmrof1&amp;dl=1&quot;</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>xmas2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="95">
+<div class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>xmas2 <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://www.dropbox.com/scl/fi/p9x9k8xwuzs9rhp582vfy/xmas_2.csv?rlkey=kvc3j3lmyn4opcidsrhcmrof1&amp;dl=1&quot;</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>xmas2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
 <div>
 
 
@@ -3806,13 +3824,13 @@ and a partridge in a pear tree.
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="96">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>xmas2[<span class="st">&#39;num_word&#39;</span>] <span class="op">=</span> xmas2[<span class="st">&#39;Day.in.Words&#39;</span>].<span class="bu">map</span>(correct_num_word)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>xmas2[<span class="st">&#39;Full.Phrase&#39;</span>] <span class="op">=</span> xmas2.<span class="bu">apply</span>(<span class="kw">lambda</span> x: make_phrase(x[<span class="st">&#39;Day&#39;</span>], x[<span class="st">&#39;num_word&#39;</span>], x[<span class="st">&#39;Gift.Item&#39;</span>], x[<span class="st">&#39;Verb&#39;</span>], x[<span class="st">&#39;Adjective&#39;</span>], x[<span class="st">&#39;Location&#39;</span>]), axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>song <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: sing_day(xmas2, x, <span class="st">&#39;Full.Phrase&#39;</span>), xmas2[<span class="st">&#39;Day&#39;</span>]))</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(song)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>xmas2[<span class="st">&#39;num_word&#39;</span>] <span class="op">=</span> xmas2[<span class="st">&#39;Day.in.Words&#39;</span>].<span class="bu">map</span>(correct_num_word)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>xmas2[<span class="st">&#39;Full.Phrase&#39;</span>] <span class="op">=</span> xmas2.<span class="bu">apply</span>(<span class="kw">lambda</span> x: make_phrase(x[<span class="st">&#39;Day&#39;</span>], x[<span class="st">&#39;num_word&#39;</span>], x[<span class="st">&#39;Gift.Item&#39;</span>], x[<span class="st">&#39;Verb&#39;</span>], x[<span class="st">&#39;Adjective&#39;</span>], x[<span class="st">&#39;Location&#39;</span>]), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>song <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: sing_day(xmas2, x, <span class="st">&#39;Full.Phrase&#39;</span>), xmas2[<span class="st">&#39;Day&#39;</span>]))</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(song)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>On the first day of Christmas, my true love sent to me:
 an email from Cal Poly.
@@ -3867,7 +3885,7 @@ two meal points,
 and an email from Cal Poly.
 
 On the ninth day of Christmas, my true love sent to me:
-nine partys bumping,
+nine parties bumping,
 eight moms a-calling,
 seven seniors stressing,
 six graders grading,
@@ -3879,7 +3897,7 @@ and an email from Cal Poly.
 
 On the tenth day of Christmas, my true love sent to me:
 ten loads of laundry,
-nine partys bumping,
+nine parties bumping,
 eight moms a-calling,
 seven seniors stressing,
 six graders grading,
@@ -3892,7 +3910,7 @@ and an email from Cal Poly.
 On the eleventh day of Christmas, my true love sent to me:
 eleven friends goodbye-ing,
 ten loads of laundry,
-nine partys bumping,
+nine parties bumping,
 eight moms a-calling,
 seven seniors stressing,
 six graders grading,
@@ -3906,7 +3924,7 @@ On the twelfth day of Christmas, my true love sent to me:
 twelve hours sleeping,
 eleven friends goodbye-ing,
 ten loads of laundry,
-nine partys bumping,
+nine parties bumping,
 eight moms a-calling,
 seven seniors stressing,
 six graders grading,
