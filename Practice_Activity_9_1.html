@@ -1,0 +1,2602 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Practice_Activity_9_1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Practice_Activity_9_1_files/libs/quarto-html/quarto.js"></script>
+<script src="Practice_Activity_9_1_files/libs/quarto-html/popper.min.js"></script>
+<script src="Practice_Activity_9_1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Practice_Activity_9_1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Practice_Activity_9_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Practice_Activity_9_1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Practice_Activity_9_1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Practice_Activity_9_1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Practice_Activity_9_1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>At this link, you will find a dataset containing information about heart disease patients: https://www.dropbox.com/scl/fi/0vrpdnq5asmeulc4gd50y/ha_1.csv?rlkey=ciisalceotl77ffqhqe3kujzv&amp;dl=1</p>
+<p>A description of the original dataset can be found here: https://archive.ics.uci.edu/dataset/45/heart+disease (However, this dataset has been cleaned and reduced, and the people have been given fictious names.)</p>
+<section id="logistic-regression" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression">1. Logistic Regression</h2>
+<p>Fit a Logistic Regression using only <code>age</code> and <code>chol</code> (cholesterol) as predictors.</p>
+<p>For a 55 year old, how high would their cholesterol need to be for the doctors to predict heart disease is present?</p>
+<p>How high for the doctors to estimate a 90% chance that heart disease is present?</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>heart <span class="op">=</span> pd.read_csv(<span class="st">"https://www.dropbox.com/scl/fi/0vrpdnq5asmeulc4gd50y/ha_1.csv?rlkey=ciisalceotl77ffqhqe3kujzv&amp;dl=1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> heart[[<span class="st">"age"</span>, <span class="st">'chol'</span>]]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> heart[<span class="st">'diagnosis'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression, LogisticRegression</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder, PolynomialFeatures, FunctionTransformer</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_score, recall_score, f1_score</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>logfit <span class="op">=</span> LogisticRegression().fit(X,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-outputid="84c8a88d-a0be-4106-938d-61943f21b8cf" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>logfit.coef_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>array([[0.04686331, 0.00180124]])</code></pre>
+</div>
+</div>
+<div class="cell" data-outputid="e9dc00f6-10fe-410f-f0c6-fdf703976e2c" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>logfit.intercept_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>array([-3.24011226])</code></pre>
+</div>
+</div>
+<p>0 = .047 * 55 + .0018 * x - 3.24</p>
+<p>x = 363.9</p>
+<div class="cell" data-outputid="784b5b84-2273-4fdd-8731-6187d45bb450" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>math.log(<span class="fl">.9</span><span class="op">/</span>(<span class="dv">1</span><span class="op">-</span><span class="fl">.9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>2.1972245773362196</code></pre>
+</div>
+</div>
+<p>2.19 = .047 * 55 + .0018 * x - 3.24</p>
+<p>x = 1580.56</p>
+</section>
+<section id="linear-discriminant-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="linear-discriminant-analysis">2. Linear Discriminant Analysis</h2>
+<p>Fit an LDA model using only <code>age</code> and <code>chol</code> (cholesterol) as predictors.</p>
+<p>For a 55 year old, how high would their cholesterol need to be for the doctors to predict heart disease is present?</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ldafit <span class="op">=</span> LinearDiscriminantAnalysis().fit(X,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-outputid="b95f603e-2110-4899-e09b-02d4579c5997" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ldafit.coef_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>array([[0.04655744, 0.00178967]])</code></pre>
+</div>
+</div>
+<div class="cell" data-outputid="a060ad1c-fd5b-4083-945c-fc96272343e8" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ldafit.intercept_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>array([-3.21967766])</code></pre>
+</div>
+</div>
+<p>0 = .466<em>55 + .0018</em>x - 3.22</p>
+<p>x = 368.2</p>
+</section>
+<section id="support-vector-classifier" class="level2">
+<h2 class="anchored" data-anchor-id="support-vector-classifier">3. Support Vector Classifier</h2>
+<p>Fit an SVC model using only <code>age</code> and <code>chol</code> as predictors. Don’t forget to tune the regularization parameter.</p>
+<p>For a 55 year old, how high would their cholesterol need to be for the doctors to predict heart disease is present?</p>
+<div class="cell" data-outputid="1c7cd781-7443-4270-94e6-8d6a08cb0877" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>svc <span class="op">=</span> Pipeline([(<span class="st">"svc"</span>, SVC(kernel <span class="op">=</span> <span class="st">'linear'</span>))])</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>tune <span class="op">=</span> {<span class="st">'svc__C'</span>: [<span class="fl">.1</span>,<span class="fl">.2</span>,<span class="fl">.3</span>,<span class="fl">.4</span>,<span class="dv">5</span>,<span class="fl">.6</span>,<span class="fl">.7</span>,<span class="fl">.7</span>,<span class="fl">.8</span>,<span class="fl">.9</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>]}</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>gscv1 <span class="op">=</span> GridSearchCV(svc, tune, cv <span class="op">=</span> <span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'r2'</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>gscv1fit <span class="op">=</span> gscv1.fit(X,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'No Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py:778: UserWarning: Scoring failed. The score on this train-test partition for these parameters will be set to nan. Details: 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_validation.py", line 767, in _score
+    scores = scorer(estimator, X_test, y_test)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 234, in __call__
+    return self._score(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_scorer.py", line 282, in _score
+    return self._sign * self._score_func(y_true, y_pred, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 911, in r2_score
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/metrics/_regression.py", line 101, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py", line 879, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/usr/local/lib/python3.10/dist-packages/sklearn/utils/_array_api.py", line 185, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 893, in __array__
+    return np.asarray(self._values, dtype)
+ValueError: could not convert string to float: 'Disease'
+
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_search.py:952: UserWarning: One or more of the test scores are non-finite: [nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan
+ nan nan]
+  warnings.warn(</code></pre>
+</div>
+</div>
+<div class="cell" data-outputid="7c9f4816-37a0-422a-8675-555b364a37e9" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>gscv1fit.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>{'svc__C': 0.1}</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>svc <span class="op">=</span> Pipeline([(<span class="st">"svc"</span>, SVC(C <span class="op">=</span> <span class="fl">.1</span>, kernel <span class="op">=</span> <span class="st">'linear'</span>))])</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>svcfit <span class="op">=</span> svc.fit(X,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-outputid="d7156ba7-30ce-4840-f18a-e94cc0216344" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>svcfit.named_steps[<span class="st">'svc'</span>].coef_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>array([[0.06439804, 0.00366067]])</code></pre>
+</div>
+</div>
+<div class="cell" data-outputid="63213fb4-c678-406f-c164-671c4a54e174" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>svcfit.named_steps[<span class="st">'svc'</span>].intercept_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>array([-4.68655043])</code></pre>
+</div>
+</div>
+<p>0 = .064 * 55 + .0037 * x - 4.69</p>
+<p>x = 316.22</p>
+</section>
+<section id="comparing-decision-boundaries" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-decision-boundaries">4. Comparing Decision Boundaries</h2>
+<p>Make a scatterplot of <code>age</code> and <code>chol</code>, coloring the points by their true disease outcome. Add a line to the plot representing the <strong>linear separator</strong> (aka <strong>decision boundary</strong>) for each of the three models above.</p>
+<div class="cell" data-outputid="fe641d25-5ae9-4a2d-e6d8-fa3ccec09ddc" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>svcfit.named_steps[<span class="st">'svc'</span>].coef_[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>array([0.06439804, 0.00366067])</code></pre>
+</div>
+</div>
+<p>x2 = -w1/w2 * X1 - b/w2</p>
+<div class="cell" data-outputid="973322e6-e7b6-4e59-c846-af0bc381dd13" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ldafit.coef_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>array([[0.04655744, 0.00178967]])</code></pre>
+</div>
+</div>
+<div class="cell" data-outputid="dfce0db3-adcd-424f-b1c3-2eb18a339c9f" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>logfit.coef_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>array([[0.04686331, 0.00180124]])</code></pre>
+</div>
+</div>
+<div class="cell" data-outputid="c15e5ebc-073c-4823-fb25-98cd73fa14d6" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>(ggplot(heart, aes(x <span class="op">=</span> <span class="st">'age'</span>, y <span class="op">=</span> <span class="st">'chol'</span>, fill <span class="op">=</span> <span class="st">'diagnosis'</span>)) <span class="op">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>geom_point() <span class="op">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>geom_abline(intercept<span class="op">=-</span>svcfit.named_steps[<span class="st">'svc'</span>].intercept_<span class="op">/</span>svcfit.named_steps[<span class="st">'svc'</span>].coef_[<span class="dv">0</span>][<span class="dv">1</span>], slope<span class="op">=-</span>svcfit.named_steps[<span class="st">'svc'</span>].coef_[<span class="dv">0</span>][<span class="dv">0</span>]<span class="op">/</span>svcfit.named_steps[<span class="st">'svc'</span>].coef_[<span class="dv">0</span>][<span class="dv">1</span>], color<span class="op">=</span><span class="st">'red'</span>, linetype<span class="op">=</span><span class="st">'dashed'</span>) <span class="op">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>geom_abline(intercept<span class="op">=-</span>logfit.intercept_<span class="op">/</span>logfit.coef_[<span class="dv">0</span>][<span class="dv">1</span>], slope<span class="op">=-</span>logfit.coef_[<span class="dv">0</span>][<span class="dv">0</span>]<span class="op">/</span>logfit.coef_[<span class="dv">0</span>][<span class="dv">1</span>], color<span class="op">=</span><span class="st">'black'</span>, linetype<span class="op">=</span><span class="st">'dashed'</span>) <span class="op">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>geom_abline(intercept<span class="op">=-</span>ldafit.intercept_<span class="op">/</span>ldafit.coef_[<span class="dv">0</span>][<span class="dv">1</span>], slope<span class="op">=-</span>ldafit.coef_[<span class="dv">0</span>][<span class="dv">0</span>]<span class="op">/</span>ldafit.coef_[<span class="dv">0</span>][<span class="dv">1</span>], color<span class="op">=</span><span class="st">'purple'</span>, linetype<span class="op">=</span><span class="st">'dashed'</span>) <span class="op">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a> xlab(<span class="st">"Age"</span>) <span class="op">+</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>ylab(<span class="st">"Cholesterol"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="Practice_Activity_9_1_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>&lt;Figure Size: (640 x 480)&gt;</code></pre>
+</div>
+</div>
+<p>Red line: SVC Purple Line: LDA Black Line: Log</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
